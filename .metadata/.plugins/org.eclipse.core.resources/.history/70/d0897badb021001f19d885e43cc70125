@@ -1,0 +1,54 @@
+package in.spring.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import in.spring.entity.Restaurant;
+import in.spring.repo.RestaurnatRepo;
+
+@Service
+public class RestaurantImpl implements RestaurantInterface {
+	
+	
+	
+	@Autowired
+	private RestaurnatRepo repo;
+	
+	@Autowired
+	private HeapSort sort;
+
+	@Override
+	public boolean insertRestaurant(Restaurant object) {
+		// TODO Auto-generated method stub
+		  try {
+			  Restaurant save = repo.save(object);
+			   if(save!=null) {
+				   return true;
+			   }
+		  }catch(Exception ex) {
+			 ex.printStackTrace();
+			  
+			  
+		  }
+		return false;
+	}
+
+	@Override
+	public List<Restaurant> getClosestRestaurant(String area) {
+		// TODO Auto-generated method stub
+		 try {
+	       List<Restaurant> byArea = repo.findByArea(area);
+	        return sort.getThreeClosest(byArea);
+		 }catch(Exception ex) {
+			 ex.printStackTrace();
+			 
+		 }
+		
+		return null;
+	}
+
+	
+	
+}

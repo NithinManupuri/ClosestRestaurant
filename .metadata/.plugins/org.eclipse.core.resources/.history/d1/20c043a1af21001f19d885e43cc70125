@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: FindClosestRestaurant
+  datasource:
+   url: jdbc:mysql://localhost:3306/restaurant?CreateDatabaseIfNotExist=true
+   username: root
+   password: Sainithin@2002
+  jpa:
+   hibernate:
+      ddl-auto: update
+   show-sql: true

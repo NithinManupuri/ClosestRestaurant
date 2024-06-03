@@ -1,0 +1,5 @@
+package in.spring.service;
+
+public interface RestaurantInterface {
+
+}

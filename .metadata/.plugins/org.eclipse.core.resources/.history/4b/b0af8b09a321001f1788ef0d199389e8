@@ -1,0 +1,11 @@
+package in.spring.service;
+
+import in.spring.entity.Restaurant;
+
+public interface RestaurantInterface {
+	
+	
+	public boolean  insertRestaurant(Restaurant object);
+	
+
+}

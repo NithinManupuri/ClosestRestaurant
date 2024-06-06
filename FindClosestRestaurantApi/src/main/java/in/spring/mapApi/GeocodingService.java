@@ -30,7 +30,7 @@ public class GeocodingService {
         
 
             
-            	String apiKey="AIzaSyAkJ4dJe5yrFqHVDHze_Y6q8ECjzJ85H4Q";
+            	String apiKey="";
 
                 try {
                    

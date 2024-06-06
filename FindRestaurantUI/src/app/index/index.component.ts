@@ -4,6 +4,7 @@ import { ServiceService } from '../service.service';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ResponseRestaurant } from '../response-restaurant';
 
 @Component({
   selector: 'app-index',
@@ -15,7 +16,7 @@ import { CommonModule } from '@angular/common';
 export class IndexComponent {
      area: string= ''
      view: boolean=false
-   list: Restaurant[]=[];
+   list: ResponseRestaurant[]=[];
    constructor(private service: ServiceService){}
 
     get(){

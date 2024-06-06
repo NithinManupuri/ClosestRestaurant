@@ -17,7 +17,7 @@ export class AddRestuarantComponent {
  constructor(private service: ServiceService){}
 
   insert(){
-    console.log(this.restaurant.distanceFromArea)
+
     this.service.addService(this.restaurant).subscribe(res =>{
       console.log(this.status)
       this.status=res;

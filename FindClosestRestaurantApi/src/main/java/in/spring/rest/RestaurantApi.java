@@ -2,6 +2,7 @@ package in.spring.rest;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import in.spring.dto.Coordinates;
+import in.spring.dto.RequestRestuarant;
+import in.spring.dto.RestaurantDistance;
 import in.spring.entity.Restaurant;
 import in.spring.service.RestaurantInterface;
 
@@ -24,9 +28,25 @@ public class RestaurantApi {
 	private RestaurantInterface service;
 	
 	@PostMapping("/add")
-	public ResponseEntity<String>  addRestaurant(@RequestBody Restaurant object){
+	public ResponseEntity<String>  addRestaurant(@RequestBody RequestRestuarant object){
 		
-		boolean status = service.insertRestaurant(object);
+		String address = object.getRestaurantName() +" ," + object.getLocation() + ", " + object.getArea();		 
+		System.out.println(address);
+		
+		 List<Coordinates> addressCoordinates = service.getAddressCoordinates(address);
+		
+		
+		
+		 Restaurant  r=new Restaurant();
+		 r.setLatitude(addressCoordinates.get(0).getLatitude());
+		 r.setLongitude(addressCoordinates.get(0).getLongitude());
+		 r.setRestaurantName(object.getRestaurantName());
+		 r.setLocation(object.getLocation());
+		 r.setPhNo(object.getPhNo());
+		 r.setArea(object.getArea());
+		
+		
+		boolean status = service.insertRestaurant(r);
 		if(status) {
 		return ResponseEntity.status(HttpStatus.CREATED).body("Inserted");
 		}else {
@@ -35,14 +55,19 @@ public class RestaurantApi {
 	}
 	
 	
-	@GetMapping("/add")
-	public ResponseEntity<List<Restaurant>>  addRestaurant(@RequestParam("area") String area){
+	@GetMapping("/get")
+	public ResponseEntity<List<RestaurantDistance>>  getClosestRestaurant(@RequestParam("area") String area ){
+		 List<Coordinates> addressCoordinates = service.getAddressCoordinates(area);
+		   Double lan=addressCoordinates.get(0).getLatitude();
+		  Double lon= addressCoordinates.get(0).getLongitude();
 		
-		 List<Restaurant> closestRestaurant = service.getClosestRestaurant(area);
+		 List<RestaurantDistance> closestRestaurant = service.getClosestRestaurant(area,lan,lon);
+		 
+		
 		 if(closestRestaurant==null) {
-			 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+			 return ResponseEntity.status(HttpStatus.OK).body(null);
 		 }else {
-		
+		System.out.println(closestRestaurant.toString());
 		return ResponseEntity.status(HttpStatus.OK).body(closestRestaurant);
 		 }
 	}

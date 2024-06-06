@@ -28,8 +28,8 @@
   </div>
 
 
-  <div  *ngIf="view">
-    <table border="1" >
+  <div *ngIf="view">
+    <table border="1">
       <thead>
         <tr>
           <th>RestaurantName</th>
@@ -44,11 +44,12 @@
           <td>{{app.restaurantName}}</td>
           <td>{{app.location}}</td>
           <td>{{app.area}}</td>
-          <td>{{app.distanceFromArea}}</td>
+          <td>
+            {{ app.distance?.toFixed(1) }} km
+          </td>
           <td>{{app.phNo}}</td>
         </tr>
       </tbody>
     </table>
   </div>
   
- 

@@ -16,8 +16,9 @@ public class Restaurant {
 	private String restaurantName;
 	private String location;
 	private String area;
-	private Double distanceFromArea;
-	private String phNo;
+	private Double longitude;
+	private Double latitude;
+	private Long phNo;
 	
 	
 
